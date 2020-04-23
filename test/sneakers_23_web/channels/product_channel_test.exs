@@ -8,7 +8,7 @@
 #---
 defmodule Sneakers23Web.ProductChannelTest do
   use Sneakers23Web.ChannelCase, async: true
-  alias Sneakers23Web.{Endpoint, ProductChannel}
+  alias Sneakers23Web.ProductChannel
   alias Sneakers23.Inventory.CompleteProduct
 
   describe "notify_product_released/1" do
@@ -17,7 +17,8 @@ defmodule Sneakers23Web.ProductChannelTest do
       [_, product] = CompleteProduct.get_complete_products(inventory)
 
       topic = "product:#{product.id}"
-      Endpoint.subscribe(topic)
+      Phoenix.PubSub.subscribe(Sneakers23.PubSub, topic)
+
       ProductChannel.notify_product_released(product)
 
       assert_broadcast "released", %{size_html: html}
@@ -37,7 +38,7 @@ defmodule Sneakers23Web.ProductChannelTest do
         CompleteProduct.get_complete_products(inventory)
 
       topic = "product:#{product.id}"
-      Endpoint.subscribe(topic)
+      Phoenix.PubSub.subscribe(Sneakers23.PubSub, topic)
 
       {:ok, %{product: product, item: item}}
     end

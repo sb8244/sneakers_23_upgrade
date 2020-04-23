@@ -23,7 +23,7 @@ defmodule Sneakers23.Checkout.SingleItemTest do
   test "an item is sold if available", %{test: test_name} do
     {_, %{i1: i1}} = Test.Factory.InventoryFactory.complete_products()
     {:ok, pid} = Server.start_link(name: test_name, loader_mod: DatabaseLoader)
-    Sneakers23Web.Endpoint.subscribe("product:#{i1.product_id}")
+    Phoenix.PubSub.subscribe(Sneakers23.PubSub, "product:#{i1.product_id}")
 
     assert get_item_counts(i1, pid) == {1, 1}
 
