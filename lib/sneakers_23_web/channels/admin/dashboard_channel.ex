@@ -18,8 +18,4 @@ defmodule Sneakers23Web.Admin.DashboardChannel do
     push(socket, "presence_state", Sneakers23Web.CartTracker.all_carts())
     {:noreply, socket}
   end
-
-  def join("admin:cart_tracker", _payload, socket) do
-    {:ok, socket}
-  end
 end
