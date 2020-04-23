@@ -1,0 +1,57 @@
+<div class="admin-container">
+  <h1>Admin Dashboard</h1>
+
+  <div id="total-shoppers">
+    <h2>Unique Shoppers</h2>
+    <div class="target">
+      <div class="admin-item-list">
+        <div class="admin-item-entry">
+          <span id="shopper-count" class="admin-item-entry__number">&mdash;</span>
+          <span class="admin-item-entry__path">total</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="shoppers-by-page">
+    <h2>Shoppers By Page</h2>
+    <div class="target"></div>
+  </div>
+
+  <main>
+    <h2>Item Breakdown</h2>
+
+    <%= for product <- @products do %>
+      <div class="product-listing" data-product-id="<%= product.id %>">
+        <div class="product-listing__image-wrap" style="height: 350px;">
+          <img src="<%= product.main_image_url %>" />
+        </div>
+
+        <div class="product-listing__details">
+          <h4 class="product-listing__detail-header"><%= product.name %></h4>
+
+          <div>by <%= product.brand %></div>
+          <div><%= product.color %></div>
+          <div>$<%= product.price_usd %></div>
+
+          <%= if product.released do %>
+            <%= for item <- product.items do %>
+              <div>
+                <strong>Size <%= item.size %>:</strong>
+                <span class="admin-item-cart-count" id="admin-item-cart-count-<%= item.id %>">0</span> in cart / <%= item.available_count %> available
+              </div>
+            <% end %>
+          <% else %>
+            <h4 class="product-soon-<%= product.id %>">
+              Not released.
+            </h4>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </main>
+</div>
+
+<script type="text/javascript">
+  window.adminToken = "<%= @admin_token %>"
+</script>

@@ -1,0 +1,14 @@
+<div class="checkout-container">
+  <h2>Order Complete!</h2>
+
+  <p>
+    Nice, your order is complete. If we stored orders, we could show you what you
+    purchased here. Your cart has been cleared.
+  </p>
+
+  <%= link("Go Home", to: Routes.product_path(@conn, :index)) %>
+</div>
+
+<script type="text/javascript">
+  delete localStorage.storedCart
+</script>

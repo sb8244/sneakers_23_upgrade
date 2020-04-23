@@ -1,0 +1,25 @@
+<main class="product-list">
+  <%= for product <- @products do %>
+    <div class="product-listing" data-product-id="<%= product.id %>">
+      <div class="product-listing__image-wrap">
+        <img src="<%= product.main_image_url %>" />
+      </div>
+
+      <div class="product-listing__details">
+        <h4 class="product-listing__detail-header"><%= product.name %></h4>
+
+        <div>by <%= product.brand %></div>
+        <div><%= product.color %></div>
+        <div>$<%= product.price_usd %></div>
+
+        <%= if product.released do %>
+          <%= render("_sizes.html", product: product) %>
+        <% else %>
+          <h4 class="product-soon-<%= product.id %>">
+            coming soon...
+          </h4>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</main>
