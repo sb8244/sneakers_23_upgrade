@@ -13,7 +13,7 @@
       <h2><%= link("Sneakers23", to: Routes.product_path(@conn, :index)) %></h2>
     </header>
 
-    <%= render @view_module, @view_template, assigns %>
+    <%= @inner_content %>
 
     <%= if assigns[:cart_id] do %>
       <div id="cart-container"></div>
