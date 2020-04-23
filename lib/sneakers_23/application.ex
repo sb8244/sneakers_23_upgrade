@@ -14,6 +14,7 @@ defmodule Sneakers23.Application do
   def start(_type, _args) do
     children = [
       Sneakers23.Repo,
+      {Phoenix.PubSub, name: Sneakers23.PubSub},
       Sneakers23Web.Endpoint,
       {Sneakers23Web.CartTracker,
         [pool_size: :erlang.system_info(:schedulers_online)]},
